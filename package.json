@@ -1,0 +1,29 @@
+{
+  "name": "discord-standup-bot",
+  "version": "1.0.0",
+  "description": "A minimal bot for managing daily standups",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousefamar/discord-standup-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "standup",
+    "stand",
+    "up",
+    "bot",
+    "agile",
+    "scrum",
+    "daily"
+  ],
+  "author": "Yousef Amar <yousef@amar.io> (http://yousefamar.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yousefamar/discord-standup-bot/issues"
+  },
+  "homepage": "https://github.com/yousefamar/discord-standup-bot#readme"
+}
