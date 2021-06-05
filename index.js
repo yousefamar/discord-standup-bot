@@ -57,7 +57,7 @@ client.on('ready', async () => {
 	cron.schedule(process.env.SCHEDULE || '0 10 * * MON-FRI', async () => {
 		console.log('New standup at', new Date());
 
-		users = channel.guild.members.cache.map(m => ({
+		users = channel.guild.members.cache.filter(m => !m.user.bot).map(m => ({
 			id: m.user.id,
 			name: m.nickname || m.user.username,
 		}));
