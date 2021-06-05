@@ -1,7 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({ ws: { intents: ['GUILDS', 'GUILD_MEMBERS'] } });
+const cron = require('node-cron');
 
 require('dotenv').config();
+
+if (!process.env.DISCORD_TOKEN) {
+	console.log('Please copy .env.template to .env and configure');
+	process.exit(1);
+}
 
 class Report {
 	constructor(user, body) {
@@ -41,7 +47,7 @@ const generateStandup = (usersWithoutReports, reports) => ({
 
 client.on('ready', async () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	const channel = client.channels.cache.find(ch => ch.name === process.env.CHANNEL_NAME);
+	const channel = client.channels.cache.find(ch => ch.name === (process.env.CHANNEL_NAME || 'standups'));
 	await channel.guild.members.fetch();
 	const users = channel.guild.members.cache.map(m => ({
 		id: m.user.id,
@@ -52,10 +58,12 @@ client.on('ready', async () => {
 
 	lastMessage = await channel.send(generateStandup(users, reports));
 
-	setTimeout(() => {
-		reports.forEach(r => r.body = 'Hello');
-		lastMessage = lastMessage.edit(generateStandup(users, reports));
-	}, 5000);
+	let i = 0;
+	cron.schedule(process.env.SCHEDULE && '*/5 * * * * * *' || '0 10 * * MON-FRI', () => {
+		console.log(i);
+		reports.forEach(r => r.body = (i++));
+		lastMessage.edit(generateStandup(users, reports));
+	});
 });
 
 client.on('message', msg => {

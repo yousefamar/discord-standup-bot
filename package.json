@@ -28,6 +28,7 @@
   "homepage": "https://github.com/yousefamar/discord-standup-bot#readme",
   "dependencies": {
     "discord.js": "^12.5.3",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "node-cron": "^3.0.0"
   }
 }
